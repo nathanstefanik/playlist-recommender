@@ -1,20 +1,14 @@
-# Created by https://www.toptal.com/developers/gitignore/api/macos,linux,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,linux,python
+# Created by https://www.toptal.com/developers/gitignore/api/python,macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,macos
 
-### Linux ###
-*~
 
-# temporary files which can be created if a process still has a handle open of a deleted file
-.fuse_hidden*
+spotify_million_playlist_dataset/
+*.csv
+*.pkl
+*.npy
 
-# KDE directory preferences
-.directory
 
-# Linux trash folder which might appear on any partition or disk
-.Trash-*
 
-# .nfs files are created when an open file is removed but is still being accessed
-.nfs*
 
 ### macOS ###
 # General
@@ -211,4 +205,9 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,linux,python
+### Python Patch ###
+# Poetry local configuration file - https://python-poetry.org/docs/configuration/#local-configuration
+poetry.toml
+
+
+# End of https://www.toptal.com/developers/gitignore/api/python,macos
