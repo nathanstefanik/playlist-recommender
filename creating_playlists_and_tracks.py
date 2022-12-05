@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 import re
 import json
+import os
 
-tracks_features_processed = pd.read_pickle('tracks_features_processed.pkl')
 track_identifier = pd.read_pickle('track_identifier.pkl')
 start = 0
-end = 3999
+end = 10999
 print(f'---- we are extracting data starting from playlist {start} to {end} ----')
 
 curr = start
@@ -47,14 +47,28 @@ def convert_to_tracks(tracks_dict):
 print('Converting tracks now!')
 length = df.shape[0]
 for i in range(length):
-    if i % 100 == 0:
-        df[:i].to_pickle(f'crafted_arrays/playlists_and_trackid_start{start}.pkl')
-        df['num_tracks_id'] = df['tracks'].apply(lambda row: len(row))
-        print(f'--- saved from playlist {start} to {i+start} so far! ---')
     if i % 25 == 0:
         print(f"iter: {i}")
     df['tracks'].iloc[i] = convert_to_tracks(df['tracks'].iloc[i].copy())
+    if i > 0 and i % 100 == 0:
+        if i == 100:
+            df[:i].to_pickle(f'crafted_data/playlists_and_trackid_start{start}_end{start+i}.pkl')
+            df['num_tracks_id'] = df['tracks'].apply(lambda row: len(row))
+            print(f'--- temporarily saved from playlist {start} to {i+start} so far! ---')
+        elif i % 500 == 0:
+            df[:i].to_pickle(f'crafted_data/playlists_and_trackid_start{start}_end{start+i}.pkl')
+            df['num_tracks_id'] = df['tracks'].apply(lambda row: len(row))
+            print(f'--- permanently saved from playlist {start} to {i+start} so far! ---')
+        else:
+            os.remove(f'crafted_data/playlists_and_trackid_start{start}_end{start+i-100}.pkl')
+            print(f'--- removed dataframe from playlist {start} to {i+start} so far! ---')
+            df[:i].to_pickle(f'crafted_data/playlists_and_trackid_start{start}_end{start+i}.pkl')
+            df['num_tracks_id'] = df['tracks'].apply(lambda row: len(row))
+            print(f'--- temporarily saved from playlist {start} to {i+start} so far! ---')
+        
+    
+    
 
 df['num_tracks_id'] = df['tracks'].apply(lambda row: len(row))
-df[:length].to_pickle(f'crafted_arrays/playlists_and_trackid_start{start}.pkl')
+df[:length].to_pickle(f'crafted_data/playlists_and_trackid_start{start}_end{end}.pkl')
 print('------ DONE -------')

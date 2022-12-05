@@ -4,10 +4,7 @@
 
 spotify_million_playlist_dataset/
 *.csv
-*.pkl
-*.npy
-*.hdf5
-
+src/tracks_numerical_features.pkl
 
 
 ### macOS ###
