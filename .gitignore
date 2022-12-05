@@ -6,7 +6,7 @@ spotify_million_playlist_dataset/
 *.csv
 *.pkl
 *.npy
-
+*.hdf5
 
 
 
